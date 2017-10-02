@@ -6,31 +6,18 @@ HunterGate(
     SHA1 "d238dc1dd4db83e45a592f96fdb95d17c688600a"
 )
 
-project(palindrome)
+project(stack)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 option(BUILD_TESTS "Build tests" OFF)
 option(BUILD_EXAMPLES "Build Examples" OFF)
 
-set(${PROJECT_NAME}_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/sources/palindrome.cpp")
+set(${PROJECT_NAME}_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/sources/stack.cpp")
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/)
 
 add_library(${PROJECT_NAME} ${${PROJECT_NAME}_SOURCES})
-
-if(BUILD_TESTS)
-  hunter_add_package(Catch)
-  find_package(Catch CONFIG REQUIRED)
-
-  enable_testing()
-
-  file(GLOB ${PROJECT_NAME}_TEST_SOURCES tests/*.cpp)
-  add_executable(tests ${${PROJECT_NAME}_TEST_SOURCES})
-  target_link_libraries(tests ${PROJECT_NAME} Catch::Catch )
-
-  add_test(NAME test_name COMMAND tests "-s" "-r" "compact" "--use-colour" "yes") 
-endif()
 
 if(BUILD_EXAMPLES)
     file(GLOB EXAMPLE_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/examples/*.cpp")
